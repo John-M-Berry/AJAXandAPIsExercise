@@ -10,34 +10,35 @@ first.append(p2);
 const jokeJS1 = JSON.parse(`{"id":18,"type":"programming","setup":"Why did the programmer quit his job?","punchline":"Because he didn't get arrays."}`)
 
 // 1b. Access the value for the "setup" key in the jokeJS1 object and set it to the inner text for the p1 variable/element (If done correctly the setup for the joke should display on the webpage)
-p1.innerText = (jokeJS1.setup)
+p1.innerText = jokeJS1.setup;
 
 // 1c. Access the value for the "punchline" key in the jokeJS1 object and set it to the inner text for the p2 variable/element (If done correctly the punchline for the joke should display on the webpage)
-p2.innerText = (jokeJS1.punchline)
+p2.innerText = jokeJS1.punchline;
 
 // 2
 // Use the JokesAPI for questions 2 & 3 (Link below)…
 // https://github.com/15Dkatz/official_joke_api
-// 2a. Use one of the "Grab a random joke!" endpoints/URL to GET a Random Joke using axios
-axios.get(`https://official-joke-api.appspot.com/random_joke`)
-
-    // 2b. Use .then to create a function that sets the value returned from the axios GET request to a const variable called jokeJS2 (NOTE: You will need to create a function with a parameter. The parameter will hold the "resolved" value returned from the axios GET request).
-    // .then(jokeJS2 => {
-
-    .then(jokeJS2 => {
-
-        // 2c. Inside of the same function, access the value for the "setup" key in the jokeJS2 object and set it to the inner text for the p3 variable/element. Also, access the value for the "punchline" key in the jokeJS2 object and set it to the inner text for the p4 variable/element (If done correctly the setup and punchline for the joke should display on the webpage)
-        p3.innerText = (jokeJS2.data.setup)
-        p4.innerText = (jokeJS2.data.punchline)
-
-    })
-
-// 2d. Finally, use .catch to create a function that would display the "rejected" value/error returned from the axios GET request in the console (NOTE: You will need a console log for this. Also, you will need to create a function with a parameter. The parameter will hold the "rejected" value/error returned from the axios GET request).
 const second = document.querySelector('#second');
 const p3 = document.createElement('p');
 const p4 = document.createElement('p');
 second.append(p3);
 second.append(p4);
+// 2a. Use one of the "Grab a random joke!" endpoints/URL to GET a Random Joke using axios
+axios.get(`https://official-joke-api.appspot.com/random_joke`)
+
+    // 2b. Use .then to create a function that sets the value returned from the axios GET request to a const variable called jokeJS2 (NOTE: You will need to create a function with a parameter. The parameter will hold the "resolved" value returned from the axios GET request).
+
+    .then(jokeJS2 => {
+
+        // 2c. Inside of the same function, access the value for the "setup" key in the jokeJS2 object and set it to the inner text for the p3 variable/element. Also, access the value for the "punchline" key in the jokeJS2 object and set it to the inner text for the p4 variable/element (If done correctly the setup and punchline for the joke should display on the webpage)
+        p3.innerText = (jokeJS2.data.setup);
+        p4.innerText = (jokeJS2.data.punchline);
+        // () NOT Necessary
+
+    })
+
+// 2d. Finally, use .catch to create a function that would display the "rejected" value/error returned from the axios GET request in the console (NOTE: You will need a console log for this. Also, you will need to create a function with a parameter. The parameter will hold the "rejected" value/error returned from the axios GET request).
+.catch(err=>console.log(err));
 
 // 3
 // Use the JokesAPI for questions 2 & 3 (Link below)…
@@ -76,22 +77,22 @@ fourth.append(p7);
 
 // 4a. Create the following variables with the corresponding values (const id = "38963", const season = "1", & const number = "8")
 
-const tvMaze = `http://api.tvmaze.com/`;
-
-// 4b. Use the "Episode by Number" endpoint/URL on the TV Maze API to create a template literal where the variables that were created are plugged into the corresponding positions. (NOTE: The root Endpoint/URL is 'http://api.tvmaze.com'. You just need to add the Episode by Number endpoint/URL onto it)
 const id = "38963"
 const season = "1"
 const number = "8"
+const tvMaze = `http://api.tvmaze.com/`;
+
+// 4b. Use the "Episode by Number" endpoint/URL on the TV Maze API to create a template literal where the variables that were created are plugged into the corresponding positions. (NOTE: The root Endpoint/URL is 'http://api.tvmaze.com'. You just need to add the Episode by Number endpoint/URL onto it)
 const showStats = `shows/${id}/episodebynumber?season=${season}&number=${number}`
 
 const fullURL = tvMaze + showStats;
 
-// 4c. Plug the created template literal into an axios GET request
 // 4d. Create a function that uses async/await called tvMazeFunc which sets the value returned from the axios GET request to a const variable called "mando"
 async function tvMazeFunc() {
-
+    
     try {
         
+        // 4c. Plug the created template literal into an axios GET request
             const mando = await axios.get(fullURL);
             console.log(fullURL);
             // 4e. Inside of the same tvMazeFunc function, access the value for the "name" key in the mando object and set it to the inner text for the p7 variable/element. If done correctly the name of the episode should display on the webpage. (NOTE: Don't forget the run the tvMazeFunc function)
@@ -107,19 +108,13 @@ async function tvMazeFunc() {
 }
 tvMazeFunc();
 
-async function axiosRandomJoke1() {
-    try {
-        // Making the request to the server using Axios
-        const joke = await axios.get(`https://official-joke-api.appspot.com/random_joke`);
-        console.log(`Axios Example 2 Was Successful`);
-        console.log(joke.data);
-        // Catching error for a failed request
-    } catch (err) {
-        console.log(`Axios Example 2 Was NOT Successful`);
-        console.log(err);
-    }
-}
-axiosRandomJoke1();
+// BONUS...
+// 5. Use the Poke API (https://pokeapi.co/) to display an image of Pikachu below the fourth div on the webpage
+
+// const pman = JSON.parse(axios.get(`https://pokeapi.co/api/v2/pokemon-species/pikachu/`)); 
+const pman1 = axios.get(`https://pokeapi.co/api/v2/pokemon/pikachu/`); 
+// const pman = JSON.parse(pman1);
+console.log(pman1);
 
 
-
+    // .then(pokemon => {
